@@ -1,0 +1,6 @@
+author: jhnnsrs
+entrypoint: app
+identifier: cellakt
+scopes:
+- read
+version: 0.0.1

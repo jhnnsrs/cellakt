@@ -1,0 +1,102 @@
+builds:
+- build_id: 0f3dad19-3497-4b7b-b70a-412c8725ad6b
+  build_run: 9925fe32-5f79-4beb-beb2-4c16eea1bc52
+  description: This is a vanilla flavour
+  flavour: vanilla
+  inspection:
+    requirements:
+    - description: An instance of ArkitektNext Datalayer to make requests to the user's
+        data
+      key: datalayer
+      optional: true
+      service: live.arkitekt.s3
+    - description: An instance of ArkitektNext fluss to retrieve graphs from
+      key: fluss
+      optional: false
+      service: live.arkitekt.fluss
+    - description: An instance of ArkitektNext kabinet to relate entities
+      key: kabinet
+      optional: false
+      service: live.arkitekt.kabinet
+    - description: An instance of ArkitektNext Lok to authenticate the user
+      key: lok
+      optional: false
+      service: live.arkitekt.lok
+    - description: An instance of ArkitektNext Mikro to make requests to the user's
+        data
+      key: mikro
+      optional: true
+      service: live.arkitekt.mikro
+    - description: An instance of ArkitektNext Rekuest to assign to nodes
+      key: rekuest
+      optional: false
+      service: live.arkitekt.rekuest
+    - description: An instance of ArkitektNext Lok to authenticate the user
+      key: unlok
+      optional: false
+      service: live.arkitekt.lok
+    size: 9228529215
+    templates:
+    - definition:
+        args:
+        - assignWidget:
+            kind: SEARCH
+            query: "query SearchImages($search: String, $values: [ID!]) {\n  options:\
+              \ images(\n    filters: {name: {contains: $search}, ids: $values}\n\
+              \    pagination: {limit: 10}\n  ) {\n    value: id\n    label: name\n\
+              \    __typename\n  }\n}"
+            ward: mikro
+          identifier: '@mikro/image'
+          key: image
+          kind: STRUCTURE
+          nullable: false
+          scope: GLOBAL
+        - default: 0
+          key: segmentation_channel
+          kind: INT
+          nullable: true
+          scope: GLOBAL
+        - default: 0
+          key: nuclei_channel
+          kind: INT
+          nullable: true
+          scope: GLOBAL
+        - default: cyto3
+          key: model_type
+          kind: STRING
+          nullable: true
+          scope: GLOBAL
+        collections: []
+        description: Segment cytoplasm using Cellpose
+        interfaces: []
+        isDev: false
+        isTestFor: []
+        kind: FUNCTION
+        name: Segment with Cyto Cellpose
+        portGroups: []
+        returns:
+        - assignWidget:
+            kind: SEARCH
+            query: "query SearchImages($search: String, $values: [ID!]) {\n  options:\
+              \ images(\n    filters: {name: {contains: $search}, ids: $values}\n\
+              \    pagination: {limit: 10}\n  ) {\n    value: id\n    label: name\n\
+              \    __typename\n  }\n}"
+            ward: mikro
+          identifier: '@mikro/image'
+          key: return0
+          kind: STRUCTURE
+          nullable: false
+          scope: GLOBAL
+        stateful: false
+      dependencies: []
+      dynamic: false
+      interface: segment_cyto
+  manifest:
+    author: jhnnsrs
+    entrypoint: app
+    identifier: cellakt
+    scopes:
+    - read
+    version: 0.0.1
+  selectors: []
+latest_build_run: 9925fe32-5f79-4beb-beb2-4c16eea1bc52
